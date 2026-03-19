@@ -1,0 +1,2065 @@
+:root {
+    /* Paleta de Colores - Inferida del estilo 'Econos' e IA */
+    --primary-color: #000000;
+    /* Fondo principal oscuro/elegante */
+    --accent-color: #4A90E2;
+    /* Azul tecnológico para botones/detalles */
+    --text-color: #333333;
+    --text-light: #F5F5F5;
+    --bg-light: #FFFFFF;
+
+    /* Tipografía */
+    --font-main: 'Inter', sans-serif;
+    /* Estándar en 2026 para UI limpia */
+
+    /* Espaciado */
+    --container-width: 1200px;
+    --header-height: 80px;
+}
+
+/* =========================================
+   RESET Y ESTILOS GLOBALES
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* Asegura que el padding no rompa el ancho */
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100vh;
+    font-family: var(--font-main, 'Inter', sans-serif);
+    color: var(--text-color, #333);
+
+    /* Fondo crema elegante */
+    background-color: #FDFBF7;
+
+    overflow-x: clip;
+}
+
+/* Configuración del Container General (para centrar contenido) */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+/* Estilos de Botones Globales */
+.btn-primary {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: var(--accent-color, #4A90E2);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #357ABD;
+}
+
+/* Estilos del Header Global */
+#global-header {
+    width: 100%;
+    height: 80px;
+
+    /* FONDO TRANSPARENTE CON EFECTO CRISTAL */
+    background-color: rgba(0, 0, 0, 0.1);
+    /* Negro al 30% de opacidad (70% transparente) */
+    backdrop-filter: blur(12px);
+    /* El efecto de cristal desenfocado */
+    -webkit-backdrop-filter: blur(12px);
+    /* Para Safari */
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+
+    /* Quitamos la sombra pesada y ponemos un borde sutil para que se vea más premium */
+    box-shadow: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Contenedor Flex */
+.header-container {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 5%;
+    /* Porcentaje para que se adapte mejor a pantallas anchas */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    /* Asegura que el padding no rompa el ancho */
+}
+
+/* --- LOGO --- */
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    height: 22px;
+    /* Logo más pequeño según tu referencia */
+    width: auto;
+    display: block;
+    transition: opacity 0.3s ease;
+}
+
+.logo-img:hover {
+    opacity: 0.8;
+}
+
+/* --- NAVEGACIÓN Y DERECHA --- */
+.nav-container {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    /* Mayor separación entre menú e idiomas */
+}
+
+.main-nav ul {
+    display: flex;
+    gap: 40px;
+    /* Más aire entre los links */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.main-nav a {
+    text-decoration: none;
+    color: #FFFFFF;
+    font-family: var(--font-main, sans-serif);
+    /* Asegúrate de tener Inter o similar */
+    font-size: 0.95rem;
+    /* Texto un poco más fino/pequeño */
+    font-weight: 400;
+    /* Peso de fuente regular, más elegante */
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+}
+
+.main-nav a:hover {
+    color: var(--accent-color, #4A90E2);
+    /* Color de acento al pasar el mouse */
+}
+
+/* --- IDIOMAS --- */
+.lang-selector {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    /* Separación entre Es y En */
+    color: #FFFFFF;
+    font-size: 0.9rem;
+}
+
+.lang-link {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.7);
+    /* Un poco transparente por defecto */
+    transition: color 0.3s;
+}
+
+.lang-link:hover,
+.lang-link.active {
+    color: #FFFFFF;
+    font-weight: 600;
+    text-decoration: none;
+    /* Quitamos subrayado para un look más limpio */
+}
+
+.separator {
+    display: none;
+    /* En diseño moderno a veces se quita la barra, o puedes dejarla si gustas */
+}
+
+/* --- RESPONSIVE --- */
+.mobile-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.mobile-toggle span {
+    width: 24px;
+    height: 2px;
+    background-color: #fff;
+}
+
+@media (max-width: 992px) {
+    .header-container {
+        padding: 0 20px;
+    }
+
+    .nav-container {
+        gap: 20px;
+    }
+
+    .main-nav ul {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .main-nav,
+    .lang-selector {
+        display: none;
+    }
+
+    .mobile-toggle {
+        display: flex;
+    }
+}
+
+/* --- CONFIGURACIÓN GLOBAL DEL FOOTER --- */
+footer#global-footer {
+    background-color: #272727;
+    color: #FFFFFF;
+    padding: 80px 0 40px;
+    /* Padding inferior un poco más corto para la base */
+    font-family: var(--font-main, sans-serif);
+}
+
+.footer-wrapper {
+    max-width: 1400px;
+    /* Ancho amplio para que respire */
+    min-height: 300px;
+    /* Altura mínima para forzar la separación vertical */
+    margin: 0 auto;
+    padding: 0 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 40px;
+}
+
+/* Propiedades compartidas de columnas */
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* CLAVE: Empuja el contenido inferior al fondo */
+}
+
+/* --- COLUMNA 1 --- */
+.col-1 {
+    flex: 1.2;
+}
+
+.footer-tagline {
+    font-size: 3rem;
+    /* Tamaño grande */
+    line-height: 1.1;
+    font-weight: 300;
+    /* Sin negrita, fino y elegante */
+    margin: 0;
+    margin-top: -10px;
+    /* Ajuste óptico para alinear con los títulos de al lado */
+}
+
+.footer-logo {
+    height: 18px;
+    width: auto;
+    display: block;
+}
+
+/* --- COLUMNA 2 y 3 (Estilos compartidos) --- */
+.col-2,
+.col-3 {
+    flex: 1;
+    padding-left: 40px;
+    /* Un poco de aire lateral */
+}
+
+/* Etiquetas (Contacto, Nuestras redes) */
+.footer-label {
+    font-size: 0.85rem;
+    font-weight: 400;
+    /* Normal, no negrita */
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 25px;
+    margin-top: 5px;
+    /* Alineación óptica con el texto grande */
+}
+
+/* Enlaces con línea debajo */
+.underlined-links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    /* Espacio entre items */
+}
+
+.link-item {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 300;
+    /* Fino */
+    padding-bottom: 8px;
+    /* Espacio entre texto y línea */
+    border-bottom: 1px solid rgba(255, 255, 255, 1);
+    /* Línea blanca sólida */
+    width: fit-content;
+    /* La línea ocupa solo lo que mida el texto */
+    min-width: 200px;
+    /* Opcional: Si quieres que todas las líneas midan lo mismo, usa esto */
+    display: block;
+    transition: opacity 0.3s;
+}
+
+.link-item:hover {
+    opacity: 0.7;
+}
+
+/* --- ELEMENTOS INFERIORES (Copyright y Legales) --- */
+.footer-bottom-element {
+    margin-top: 40px;
+    /* Asegura separación mínima si la pantalla es bajita */
+}
+
+.copyright {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.legal-links {
+    display: flex;
+    gap: 20px;
+}
+
+.legal-links a {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: #FFFFFF;
+    text-decoration: underline;
+    /* Subrayado clásico para legales */
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 992px) {
+    .footer-wrapper {
+        flex-direction: column;
+        gap: 60px;
+        min-height: auto;
+    }
+
+    .col-2,
+    .col-3 {
+        padding-left: 0;
+    }
+
+    .footer-tagline {
+        font-size: 2.2rem;
+    }
+
+    .link-item {
+        width: 100%;
+        /* En móvil, las líneas ocupan todo el ancho */
+    }
+}
+
+/* =========================================
+   ESTILOS GENERALES DE SECCIONES
+   ========================================= */
+.home-section {
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    color: var(--primary-color, #000);
+    line-height: 1.2;
+}
+
+.section-title.center {
+    text-align: center;
+}
+
+/* =========================================
+   1. HERO SECTION
+   ========================================= */
+.home-hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 700px;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 80px;
+
+    color: #fff;
+    background-image: url('/assets/img/hero-bg.jpg');
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 1;
+}
+
+.hero-bottom-layout {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 40px;
+    width: 100%;
+}
+
+.hero-col-left {
+    flex: 1;
+    max-width: 500px;
+}
+
+.hero-col-left h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    line-height: 1.2;
+    color: #FFFFFF;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    margin: 0;
+}
+
+.hero-col-right {
+    flex: 1.5;
+    max-width: 500px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.hero-right-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    align-items: flex-start;
+}
+
+@media (min-width: 993px) {
+    .hero-right-content {
+        align-items: flex-start;
+        max-width: 100%;
+    }
+}
+
+.hero-desc {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #FFFFFF;
+    font-weight: 300;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+    margin: 0;
+    max-width: 100%;
+}
+
+.btn-hero-white {
+    background-color: #FFFFFF !important;
+    color: #000000 !important;
+    border: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 12px 30px;
+    align-self: flex-start;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.btn-hero-white::after {
+    content: ' \2192';
+    font-weight: 400;
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+}
+
+.btn-hero-white:hover {
+    background-color: #f2f2f2 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.btn-hero-white:hover::after {
+    transform: translateX(5px);
+}
+
+
+/* =========================================
+   2. IDENTITY SECTION
+   ========================================= */
+.section-identity {
+    background-color: #fff;
+    padding-bottom: 120px;
+}
+
+.identity-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: end;
+}
+
+.big-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 4rem;
+    font-weight: 400;
+    line-height: 1;
+    color: #2D2418;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    padding-left: 80px;
+    margin-bottom: 0;
+}
+
+.identity-right p {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #2D2418;
+    border-left: none;
+    padding-left: 0;
+    margin-bottom: 0;
+    padding-bottom: 5px;
+}
+
+.identity-right p strong {
+    font-weight: 700;
+    color: #000;
+}
+
+/* =========================================
+   3. GAP SECTION (Texto manda la altura)
+   ========================================= */
+.section-gap {
+    background-color: #FDFBFA;
+    padding: 120px 0;
+}
+
+.gap-layout {
+    display: flex;
+    gap: 60px;
+    align-items: stretch;
+    /* Alturas iguales */
+}
+
+/* --- IMAGEN ESCLAVA --- */
+.gap-col-image {
+    flex: 2;
+    /* 2/3 del ancho */
+    position: relative;
+    min-height: 100%;
+}
+
+.gap-image-container {
+    position: absolute;
+    /* Fuera del flujo */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+}
+
+.ramon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* --- TEXTO MAESTRO --- */
+.gap-col-content {
+    flex: 0.8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 30px;
+}
+
+.gap-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 500;
+    color: #2D2418;
+    line-height: 1.1;
+    margin: 0;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.gap-text-block {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.gap-text-block p {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #2D2418;
+    margin: 0;
+}
+
+.gap-text-block p strong {
+    font-weight: 700;
+    color: #000;
+}
+
+.gap-final-bold {
+    font-weight: 700 !important;
+    margin-top: 15px;
+    display: block;
+}
+
+
+/* =========================================
+   4. ECOSYSTEM SECTION (Dark Mode)
+   ========================================= */
+.section-ecosystem {
+    background-image: url('/assets/img/fondo-digital.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #fff;
+    padding: 120px 0;
+}
+
+.eco-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 80px;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.eco-main-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 3rem;
+    font-weight: 500;
+    color: #fff;
+    line-height: 1.1;
+    margin: 0;
+    max-width: 600px;
+}
+
+.eco-header-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #ccc;
+    max-width: 300px;
+    text-align: left;
+    margin: 0;
+}
+
+.eco-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+.eco-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.eco-img-box {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+}
+
+.eco-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.eco-divider {
+    width: 100%;
+    height: 1px;
+    background-color: #fff;
+    margin: 20px 0;
+}
+
+.eco-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 10px 0;
+}
+
+.eco-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: #8A8989;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* =========================================
+   5. RESULTS SECTION (SIN ESPACIO INFERIOR)
+   ========================================= */
+.section-results {
+    background-color: #FDFBFA;
+    padding: 140px 0 20px 0;
+}
+
+.results-layout {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+/* Columna Izquierda */
+.results-left {
+    flex: 0 0 350px;
+    max-width: 400px;
+}
+
+.results-main-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 3rem;
+    font-weight: 500;
+    color: #2D2418;
+    line-height: 1;
+    margin: 0;
+}
+
+/* Columna Derecha */
+.results-right {
+    flex: 0 0 500px;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-self: flex-start;
+    margin-top: 230px;
+}
+
+.results-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.results-list li {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    color: #2D2418;
+    padding: 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+    border-bottom: none;
+}
+
+/* LÍNEA COMPACTA */
+.results-list li::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    background-color: #C4C4C4;
+    width: 100%;
+    max-width: 380px;
+}
+
+/* Checkmark SVG */
+.results-list li::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 12px;
+    background-image: url("data:image/svg+xml,%3Csvg width='16' height='12' viewBox='0 0 16 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 6L5.5 10.5L15 1' stroke='%232D2418' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    flex-shrink: 0;
+}
+
+.results-footer-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    color: #2D2418;
+    line-height: 1.5;
+    max-width: 380px;
+    margin-top: -10px;
+}
+
+.results-footer-text strong {
+    font-weight: 700;
+}
+
+/* =========================================
+   6. METHODOLOGY SECTION (SIN ESPACIO SUPERIOR)
+   ========================================= */
+.section-methodology {
+    background-color: #fff;
+    padding: 0 0 100px 0;
+}
+
+.methodology-full-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+
+/* =========================================
+   7. NUEVAS SECCIONES (TRUST & CTA)
+   ========================================= */
+
+/* --- SECCIÓN TRUST (Clara) --- */
+.section-trust {
+    background-color: #FAF8F5;
+    /* Tono crema suave */
+    position: relative;
+    padding: 120px 0;
+    overflow: hidden;
+}
+
+.watermark-title {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 8rem;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.03);
+    /* Casi transparente */
+    text-align: center;
+    line-height: 0.9;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.trust-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 60px;
+    align-items: center;
+    margin-top: 60px;
+}
+
+.trust-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.trust-list li {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    color: #2D2418;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+.trust-col-visual {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.trust-img {
+    width: 250px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.trust-slogan {
+    font-family: 'Inter', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: #000;
+    line-height: 1.1;
+    margin: 0;
+}
+
+/* --- SECCIÓN CTA FINAL (Oscura) --- */
+.section-digital-cta {
+    background-image: url('/assets/img/fondo-digital.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 140px 0;
+    /* Un poco más de aire vertical */
+    color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.cta-container {
+    display: flex;
+    justify-content: center;
+    /* Centra el bloque .cta-box en la pantalla */
+    width: 100%;
+}
+
+.cta-box {
+    display: inline-flex;
+    /* Se ajusta al ancho del contenido */
+    flex-direction: column;
+    align-items: flex-start;
+    /* Alinea texto y botón a la izquierda */
+    text-align: left;
+    /* Evitamos que el bloque se pegue a los bordes en pantallas medianas */
+    padding: 0 20px;
+}
+
+.cta-heading {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 3rem;
+    font-weight: 300;
+    line-height: 1.1;
+    white-space: nowrap;
+    /* Mantiene una sola línea */
+    margin: 0;
+    /* Pegado al subtítulo */
+    color: #fff;
+}
+
+.cta-subheading {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: #fff;
+    margin: 0 0 10px 0;
+    /* Espacio mínimo antes del botón */
+}
+
+.cta-action {
+    margin-top: 30px;
+}
+
+.btn-white-expert {
+    display: inline-flex;
+    align-items: center;
+    background-color: #FFFFFF;
+    color: #000000;
+    text-decoration: none;
+    padding: 15px 35px;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.btn-white-expert::after {
+    content: '\2192';
+    margin-left: 10px;
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.btn-white-expert:hover {
+    background-color: #f2f2f2;
+    transform: translateY(-2px);
+}
+
+.btn-white-expert:hover::after {
+    transform: translateX(5px);
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+@media (max-width: 992px) {
+
+    /* Hero */
+    .hero-bottom-layout {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-bottom: 40px;
+        gap: 30px;
+    }
+
+    .hero-col-left,
+    .hero-col-right {
+        max-width: 100%;
+        flex: auto;
+    }
+
+    .home-hero {
+        background-position: center;
+    }
+
+    .hero-col-left h1 {
+        font-size: 1.6rem;
+    }
+
+    /* Identity */
+    .identity-grid {
+        align-items: start;
+    }
+
+    .big-title {
+        font-size: 3rem;
+        padding-left: 0;
+    }
+
+    /* Gap Section */
+    .gap-layout {
+        flex-direction: column;
+        gap: 40px;
+        align-items: flex-start;
+    }
+
+    .gap-col-image,
+    .gap-col-content {
+        flex: auto;
+        width: 100%;
+    }
+
+    .gap-image-container {
+        position: relative;
+        height: auto;
+    }
+
+    .ramon-img {
+        height: auto;
+    }
+
+    /* Ecosystem */
+    .eco-header {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .eco-header-desc {
+        max-width: 100%;
+    }
+
+    .eco-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+    }
+
+    /* Results */
+    .results-layout {
+        flex-direction: column;
+        gap: 60px;
+    }
+
+    .results-left,
+    .results-right {
+        max-width: 100%;
+        flex: auto;
+    }
+
+    .results-right {
+        margin-top: 0;
+    }
+
+    .results-main-title {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+    }
+
+    .results-list li::after {
+        max-width: 100%;
+    }
+
+    .results-footer-text {
+        max-width: 100%;
+    }
+
+    /* Trust Section */
+    .watermark-title {
+        font-size: 4rem;
+        top: 20px;
+    }
+
+    .trust-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        margin-top: 20px;
+    }
+
+    .trust-col-visual {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .trust-img {
+        width: 100%;
+        height: auto;
+        max-height: 300px;
+    }
+
+    /* CTA Section - Responsive adjustments */
+    .cta-box {
+        align-items: flex-start;
+        /* Aseguramos alineación izq en tablet */
+    }
+
+    .cta-heading {
+        font-size: 2rem;
+        /* En móvil permitimos salto de línea si no cabe */
+        white-space: normal;
+    }
+
+    .cta-subheading {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .home-section {
+        padding: 60px 0;
+    }
+
+    .identity-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .identity-right p {
+        border-left: none;
+        padding-left: 0;
+    }
+
+    .eco-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================
+   ESTILOS ESPECÍFICOS: SERVICIOS
+   ========================================= */
+
+.section-pad {
+    padding: 100px 0;
+}
+
+/* CAMBIO: Reducido drásticamente para eliminar separación con la sig. sección */
+.section-pad-btm {
+    padding-bottom: 30px;
+}
+
+/* --- HERO (SOLO IMAGEN) --- */
+.services-hero-container {
+    width: 100%;
+    margin-top: 80px;
+    /* Altura header */
+    line-height: 0;
+    background-color: #000;
+}
+
+.hero-full-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* --- INTRO BLOCK (2 COLUMNAS) --- */
+.services-main-section {
+    padding-top: 80px;
+}
+
+.services-intro-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+    margin-bottom: 80px;
+    border-bottom: 1px solid #E5E5E5;
+    padding-bottom: 60px;
+
+    /* MARGEN LATERAL DEL 8% (Referencia de alineación) */
+    padding-left: 8%;
+    padding-right: 8%;
+}
+
+.intro-col-left {
+    flex: 1;
+}
+
+.intro-col-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding-top: 20px;
+}
+
+.intro-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 3rem;
+    font-weight: 400;
+    line-height: 1.1;
+    color: #2D2418;
+    margin: 0;
+    text-transform: uppercase;
+    max-width: 15ch;
+}
+
+.intro-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #8A8989;
+    margin: 0;
+    text-align: left;
+    max-width: 380px;
+}
+
+/* --- GRID DE 4 COLUMNAS --- */
+.grid-4-col {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+
+    /* Mismo padding para alineación */
+    padding-left: 8%;
+    padding-right: 8%;
+}
+
+.service-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.service-img-container {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    margin-bottom: 20px;
+    background-color: #f5f5f5;
+}
+
+.service-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.service-card:hover .service-img {
+    transform: scale(1.05);
+}
+
+.service-line {
+    width: 100%;
+    height: 1px;
+    background-color: #E5E5E5;
+    margin-bottom: 15px;
+}
+
+.service-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #2D2418;
+}
+
+.service-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    color: #8A8989;
+    line-height: 1.5;
+}
+
+/* --- SERVICIOS CORPORATIVOS (NUEVO DISEÑO) --- */
+.corp-services-section {
+    background-color: #FDFBFA;
+    border-top: 1px solid #eee;
+
+    /* CAMBIO: Sobrescribimos el padding superior para pegarlo a la sección anterior */
+    padding-top: 30px;
+}
+
+/* Wrapper para aplicar la misma alineación del 8% */
+.corp-content-wrapper {
+    width: 100%;
+    padding-left: 8%;
+    padding-right: 8%;
+}
+
+.corp-section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 3rem;
+    /* Igual al intro-title */
+    font-weight: 400;
+    line-height: 1.1;
+    color: #2D2418;
+    margin-bottom: 60px;
+    text-transform: uppercase;
+    text-align: left;
+}
+
+/* Grid de 3 Columnas */
+.grid-3-col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.corp-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.corp-img-container {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    /* Formato rectangular */
+    overflow: hidden;
+    margin-bottom: 20px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+}
+
+.corp-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.corp-card:hover .corp-img {
+    transform: scale(1.05);
+}
+
+.corp-card-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #2D2418;
+    margin-bottom: 10px;
+}
+
+.corp-card-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    /* Pequeño */
+    color: #8A8989;
+    line-height: 1.5;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 1024px) {
+
+    .services-intro-layout,
+    .grid-4-col,
+    .corp-content-wrapper {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    .services-intro-layout {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .grid-4-col {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+
+    .grid-3-col {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+
+    .intro-col-right {
+        padding-top: 0;
+        align-items: flex-start;
+    }
+
+    .intro-title,
+    .corp-section-title {
+        font-size: 2.5rem;
+        max-width: 100%;
+    }
+
+    .intro-desc {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .grid-4-col {
+        grid-template-columns: 1fr;
+    }
+
+    .services-hero-container {
+        margin-top: 60px;
+    }
+}
+
+/* =========================================
+   ESTILOS ESPECÍFICOS: NOSOTROS (ABOUT)
+   ========================================= */
+
+/* --- CONFIGURACIÓN GENERAL --- */
+/* Eliminamos paddings genéricos ya que las imágenes manejan el espacio visual */
+.about-hero-container {
+    width: 100%;
+    margin-top: 80px;
+    /* Altura header fijo */
+    line-height: 0;
+    /* Elimina espacios fantasma debajo de la imagen */
+    background-color: #000;
+}
+
+.about-img-section {
+    width: 100%;
+    line-height: 0;
+    /* Si las imágenes necesitan separación entre ellas, añade margin-bottom aquí.
+       Por defecto, las dejamos pegadas (0) para continuidad visual */
+    margin: 0;
+}
+
+/* --- CLASE MAESTRA PARA IMÁGENES FULL WIDTH --- */
+.full-width-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* --- AJUSTE RESPONSIVE CTA --- */
+/* Aseguramos que el CTA final tenga su espacio correcto tras las imágenes */
+.section-digital-cta {
+    /* Si necesitas separar el CTA de la última imagen, ajusta aquí */
+    margin-top: 0;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 600px) {
+    .about-hero-container {
+        margin-top: 60px;
+    }
+}
+
+html.lenis,
+html.lenis body {
+    height: auto;
+}
+
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+    overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+    pointer-events: none;
+}
+
+
+/* =========================================
+   ESTILOS DE LA PÁGINA DE CONTACTO (DISEÑO FINAL)
+   ========================================= */
+
+.contact-page-section {
+    position: relative;
+    z-index: 2;
+    padding-top: 100px;
+    /* Espacio para el header */
+    padding-bottom: 60px;
+}
+
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: flex-start;
+}
+
+/* --- Columna Izquierda --- */
+.contact-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* El gran título CONTACTO */
+.contact-main-title {
+    font-family: var(--font-space, sans-serif);
+    font-size: 6rem;
+    /* Tamaño gigante */
+    font-weight: 500;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Subtítulo: Hablemos de digitalizar... */
+.contact-subtitle {
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.2;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Botón Rojo */
+.btn-red-meeting {
+    background-color: #BD1F23;
+    color: #fff;
+    font-family: var(--font-main, sans-serif);
+    padding: 18px 30px;
+    font-size: 1.1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-red-meeting:hover {
+    background-color: #a01a1d;
+}
+
+/* --- Columna Derecha (Formulario) --- */
+.minimal-form-wrapper {
+    width: 100%;
+    max-width: 500px;
+    margin-left: auto;
+}
+
+.form-small-title {
+    color: #fff;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    display: block;
+    opacity: 0.8;
+}
+
+.minimal-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.minimal-group {
+    margin-bottom: 0;
+}
+
+/* Inputs con solo borde inferior */
+.minimal-form input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #fff;
+    padding: 15px 0;
+    color: #fff;
+    font-size: 1.2rem;
+    font-family: var(--font-main, sans-serif);
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.minimal-form input::placeholder {
+    color: #fff;
+    opacity: 1;
+}
+
+.minimal-form input:focus {
+    border-bottom: 2px solid #fff;
+}
+
+/* Mensaje y Textarea con borde completo */
+.textarea-label {
+    color: #fff;
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.minimal-form textarea {
+    width: 100%;
+    background: transparent;
+    border: 1px solid #fff;
+    padding: 15px;
+    color: #fff;
+    font-size: 1.1rem;
+    font-family: var(--font-main, sans-serif);
+    outline: none;
+    resize: vertical;
+}
+
+.minimal-form textarea:focus {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Botón Blanco de Enviar */
+.btn-white-submit {
+    background-color: #fff;
+    color: #000;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    font-family: var(--font-main, sans-serif);
+    transition: background-color 0.3s ease;
+}
+
+.btn-white-submit:hover {
+    background-color: #e0e0e0;
+}
+
+/* --- Responsivo --- */
+@media (max-width: 1024px) {
+    .contact-main-title {
+        font-size: 4rem;
+    }
+
+    .contact-subtitle {
+        font-size: 2rem;
+    }
+
+    .contact-container {
+        gap: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    .contact-container {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-left {
+        text-align: center;
+    }
+
+    .contact-main-title {
+        font-size: 3.5rem;
+    }
+
+    .minimal-form-wrapper {
+        margin: 0 auto;
+    }
+}
+
+/* =========================================
+   ESTILOS DE LOS BANNERS (SERVICIOS Y NOSOTROS)
+   ========================================= */
+
+.banner-hero-section {
+    height: 45vh;
+    /* Altura del banner */
+    min-height: 350px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: flex-end;
+    /* Empuja el contenido hacia abajo */
+    padding-bottom: 40px;
+    /* Separa el texto del borde inferior */
+    position: relative;
+    z-index: 2;
+}
+
+/* Opcional: un ligero degradado oscuro para asegurar que las letras blancas siempre se lean */
+.banner-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 60%);
+    z-index: 1;
+}
+
+/* Estilo exacto del texto (Space Grotesk, Blanco, Grande) */
+.banner-hero-title {
+    font-family: var(--font-space, sans-serif);
+    font-size: 5rem;
+    /* Tamaño gigante */
+    color: #fff;
+    margin: 0;
+    line-height: 1;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .banner-hero-section {
+        height: 35vh;
+        min-height: 250px;
+    }
+
+    .banner-hero-title {
+        font-size: 3.5rem;
+        /* Más pequeño en móviles */
+    }
+}
+
+/* =========================================
+   NUEVOS EFECTOS: SplitText Hero
+   ========================================= */
+.hero-h1-split {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    line-height: 1.2;
+    color: #FFFFFF;
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.9);
+    margin: 0;
+}
+
+/* =========================================
+   CUSTOM CURSOR — solo en desktop
+   ========================================= */
+@media (pointer: coarse) {
+
+    /* En dispositivos táctiles: cursor del sistema */
+    *,
+    *::before,
+    *::after {
+        cursor: auto !important;
+    }
+}
+
+/* =========================================
+   MOBILE-FIRST IMPROVEMENTS — page.tsx
+   ========================================= */
+
+/* Reducir movimiento en móvil si el usuario lo prefiere */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* HERO — mejoras móvil */
+@media (max-width: 768px) {
+    .home-hero {
+        min-height: 100svh;
+        /* svh: small viewport height, mejor en móvil con barra del navegador */
+        padding-bottom: 50px;
+        background-position: center;
+    }
+
+    .hero-h1-split {
+        font-size: 1.5rem;
+    }
+
+    .hero-bottom-layout {
+        gap: 20px;
+        padding-bottom: 30px;
+    }
+
+    .hero-desc {
+        font-size: 0.9rem;
+    }
+}
+
+/* IDENTITY — móvil */
+@media (max-width: 600px) {
+    .section-identity {
+        padding: 60px 0;
+    }
+
+    .big-title {
+        font-size: 2.4rem;
+        padding-left: 0;
+    }
+
+    .identity-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}
+
+/* GAP SECTION — imagen ocupa todo en móvil */
+@media (max-width: 768px) {
+    .section-gap {
+        padding: 60px 0;
+    }
+
+    .gap-layout {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .gap-col-image {
+        flex: auto;
+        width: 100%;
+        min-height: 300px;
+    }
+
+    .gap-image-container {
+        position: relative;
+        height: 300px;
+    }
+
+    .gap-title {
+        font-size: 1.75rem;
+    }
+}
+
+/* ECOSYSTEM — 1 columna en móvil pequeño */
+@media (max-width: 480px) {
+    .eco-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .eco-main-title {
+        font-size: 2rem;
+    }
+}
+
+/* RESULTS — apilar en móvil */
+@media (max-width: 768px) {
+    .section-results {
+        padding: 60px 0;
+    }
+
+    .results-layout {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .results-left,
+    .results-right {
+        flex: auto;
+        max-width: 100%;
+        margin-top: 0;
+    }
+
+    .results-main-title {
+        font-size: 2rem;
+    }
+
+    .results-list li::after {
+        max-width: 100%;
+    }
+
+    .results-footer-text {
+        max-width: 100%;
+    }
+}
+
+/* CTA FINAL — móvil */
+@media (max-width: 768px) {
+
+    .cta-heading,
+    .cta-subheading {
+        font-size: 1.75rem;
+        white-space: normal;
+    }
+
+    .cta-box {
+        padding: 0;
+        width: 100%;
+    }
+}
+
+/* METHODOLOGY — imagen responsive */
+@media (max-width: 768px) {
+    .section-methodology {
+        padding: 40px 0 60px;
+    }
+}
+
+/* Touch smooth scroll nativo en iOS */
+* {
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Prevenir overflow horizontal global en mobile */
+@media (max-width: 768px) {
+
+    html,
+    body {
+        overflow-x: clip;
+        max-width: 100vw;
+    }
+
+    .home-section {
+        overflow-x: clip;
+    }
+}
+
+/* =========================================
+   IDENTITY — texto movido desde hero
+   ========================================= */
+.identity-hero-moved {
+    margin-top: 60px;
+    padding-top: 50px;
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.5rem, 3.5vw, 2.6rem);
+    font-weight: 400;
+    line-height: 1.25;
+    color: #1a1a1a;
+    max-width: 820px;
+}
+
+@media (max-width: 768px) {
+    .identity-hero-moved {
+        font-size: 1.35rem;
+        margin-top: 40px;
+        padding-top: 36px;
+    }
+}
+
+/* =========================================
+   MENÚ DESPLEGABLE MÓVIL (SOBRESCRIBE HEADER MÓVIL)
+   ========================================= */
+@media (max-width: 768px) {
+
+    /* 1. Forzamos que el menú exista, pero esté oculto visualmente y sin atrapar clics */
+    .nav-container .main-nav {
+        display: flex !important;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh;
+        background-color: #1A120A;
+        /* Color de fondo oscuro y elegante */
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 998;
+
+        /* Efecto de aparición */
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+        transform: translateY(-20px);
+        transition: all 0.4s ease-in-out;
+    }
+
+    /* 2. Cuando hacemos clic en la hamburguesa y se activa .open */
+    .nav-container.open .main-nav {
+        opacity: 1;
+        pointer-events: auto;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    /* 3. Estilos de los links adentro del menú móvil */
+    .nav-container .main-nav ul {
+        flex-direction: column;
+        gap: 40px !important;
+        text-align: center;
+    }
+
+    .nav-container .main-nav ul li a {
+        font-size: 2.2rem !important;
+        font-family: 'Space Grotesk', sans-serif !important;
+        font-weight: 500 !important;
+        color: #FFFFFF;
+    }
+
+    /* 4. Selector de idiomas: Oculto por defecto, centrado abajo si está abierto */
+    .nav-container:not(.open) .lang-selector {
+        display: none !important;
+    }
+
+    .nav-container.open .lang-selector {
+        display: flex !important;
+        position: fixed;
+        bottom: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 999;
+    }
+
+    /* 5. Animación del Botón Hamburguesa a "X" */
+    .mobile-toggle {
+        z-index: 999;
+        /* Para que quede por encima de la pantalla negra */
+        position: relative;
+    }
+
+    .mobile-toggle span {
+        transition: all 0.3s ease;
+        transform-origin: left center;
+        /* Gira desde la izquierda */
+    }
+
+    /* Rayita de arriba gira hacia abajo */
+    .nav-container.open .mobile-toggle span:nth-child(1) {
+        transform: rotate(45deg) translate(-2px, -2px);
+    }
+
+    /* Rayita del medio desaparece */
+    .nav-container.open .mobile-toggle span:nth-child(2) {
+        opacity: 0;
+    }
+
+    /* Rayita de abajo gira hacia arriba */
+    .nav-container.open .mobile-toggle span:nth-child(3) {
+        transform: rotate(-45deg) translate(-2px, 2px);
+    }
+}
