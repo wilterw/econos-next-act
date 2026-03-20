@@ -67,17 +67,18 @@ function CorpCardVertical({ step, index, scrollYProgress, t }: { step: any, inde
 
   return (
     <motion.div
+      className="corp-card-wrapper"
       style={{
         position: "absolute", width: "100%", height: "100%",
         display, y, opacity, zIndex: 10 - index,
         alignItems: "center", justifyContent: "center"
       }}
     >
-      <div style={{
+      <div className="corp-card-content" style={{
         display: "flex", alignItems: "center", width: "100%", maxWidth: "1000px", padding: "0 20px", gap: "60px"
       }}>
         {/* LADO IZQUIERDO: Número Gigante */}
-        <div style={{ flex: "0 0 auto" }}>
+        <div className="corp-card-num" style={{ flex: "0 0 auto" }}>
           <span style={{
             fontSize: "clamp(8rem, 15vw, 15rem)", fontWeight: 800, color: step.color,
             lineHeight: 0.8, fontFamily: "var(--font-space)", letterSpacing: "-0.05em"
@@ -87,7 +88,7 @@ function CorpCardVertical({ step, index, scrollYProgress, t }: { step: any, inde
         </div>
 
         {/* LADO DERECHO: Contenido y Foto */}
-        <div style={{ flex: "1 1 auto", display: "flex", flexDirection: "column" }}>
+        <div className="corp-card-text" style={{ flex: "1 1 auto", display: "flex", flexDirection: "column" }}>
           <h3
             style={{ fontSize: "clamp(2rem, 3.5vw, 3rem)", fontWeight: 700, color: "#0A0A0C", margin: "0 0 20px 0", lineHeight: 1.1, fontFamily: "var(--font-space)", letterSpacing: "-0.02em" }}
             dangerouslySetInnerHTML={{ __html: t(step.titleKey) }}
@@ -101,7 +102,7 @@ function CorpCardVertical({ step, index, scrollYProgress, t }: { step: any, inde
             dangerouslySetInnerHTML={{ __html: t(step.descKey) }}
           />
 
-          <div style={{ width: "100%", maxWidth: "450px", aspectRatio: "16/9", borderRadius: "12px", overflow: "hidden", boxShadow: "0 20px 40px rgba(0,0,0,0.08)" }}>
+          <div className="corp-card-img" style={{ width: "100%", maxWidth: "450px", aspectRatio: "16/9", borderRadius: "12px", overflow: "hidden", boxShadow: "0 20px 40px rgba(0,0,0,0.08)" }}>
             <img src={step.img} alt={t(step.titleKey)} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
           </div>
         </div>
@@ -131,42 +132,79 @@ function CorpServicesScroll() {
   const wordVariant = { hidden: { opacity: 0, display: "none" }, visible: { opacity: 1, display: "inline-block" } };
 
   return (
-    <section ref={mainRef} style={{
-      position: "relative", width: "100%",
-      height: "400vh", // 4 pantallas de duración para un scroll cómodo
-      backgroundColor: "transparent", // Fondo transparente para fluir con el diseño
-      zIndex: 30
-    }}>
-      <div style={{
-        position: "sticky", top: 0, height: "100vh", width: "100%", overflow: "hidden",
-        display: "flex", alignItems: "center", justifyContent: "center"
+    <>
+      <style>{`
+        /* Altura por defecto para PC */
+        .corp-scroll-section { height: 400vh; }
+        
+        /* 🟢 REGLAS CSS PARA MANTENER LA ANIMACIÓN PERO QUE QUEPA EN MÓVIL 🟢 */
+        @media (max-width: 768px) {
+          /* 1. Reducir drásticamente el tiempo de scroll (2 pantallas en vez de 4) */
+          .corp-scroll-section { height: 200vh !important; }
+          .corp-sticky-box { height: 100dvh !important; }
+          
+          /* 2. Ajustar posición del título para que no choque con la primera tarjeta */
+          .corp-main-title { top: 15% !important; padding: 0 20px !important; }
+          .corp-main-title h2 { font-size: 2rem !important; }
+          
+          /* 3. Reorganizar la tarjeta: Apilada, centrada y compacta */
+          .corp-card-content { 
+            flex-direction: column !important; 
+            gap: 10px !important; 
+            align-items: flex-start !important; 
+            margin-top: 15vh; /* Bajamos el bloque para que respire con el header */
+          }
+          
+          /* 4. Miniaturizar elementos para que quepan en la pantalla */
+          .corp-card-num span { font-size: 4rem !important; line-height: 0.9 !important; display: block; margin-bottom: 0px; }
+          .corp-card-text h3 { font-size: 1.5rem !important; margin-bottom: 8px !important; }
+          .corp-card-text p { font-size: 1rem !important; margin-bottom: 12px !important; line-height: 1.4 !important; }
+          
+          /* 5. La imagen asume el resto del espacio sin desbordar */
+          .corp-card-img { 
+            max-width: 100% !important; 
+            max-height: 25vh !important; /* Limita la altura para que no empuje el contenido hacia abajo */
+            margin-top: 5px !important; 
+          }
+        }
+      `}</style>
+
+      <section ref={mainRef} className="corp-scroll-section" style={{
+        position: "relative", width: "100%",
+        backgroundColor: "transparent", // Fondo transparente para fluir con el diseño
+        zIndex: 30
       }}>
+        {/* 🟢 El height de este contenedor se controla ahora desde el CSS */}
+        <div className="corp-sticky-box" style={{
+          position: "sticky", top: 0, height: "100vh", width: "100%", overflow: "hidden",
+          display: "flex", alignItems: "center", justifyContent: "center"
+        }}>
 
-        {/* TÍTULO INICIAL: Entra normal y se va hacia arriba */}
-        <motion.div style={{ position: "absolute", opacity: titleOpacity, y: titleY, display: titleDisplay, textAlign: "center", zIndex: 10 }}>
-          <motion.h2
-            initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-10%" }}
-            variants={{ hidden: { opacity: 1 }, visible: { transition: { staggerChildren: 0.05 } } }}
-            style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)", fontWeight: 800, color: "#0A0A0C", margin: 0, textTransform: "uppercase", letterSpacing: "1px", lineHeight: 1.1, fontFamily: "var(--font-space)" }}
-          >
-            {titleLines.map((line, lineIndex) => (
-              <div key={lineIndex}>
-                {/* 🟢 Solucionado el typo de charIndex a index */}
-                {Array.from(line.replace(/<[^>]*>?/gm, '')).map((char, index) => (
-                  <motion.span key={index} variants={wordVariant}>{char === " " ? "\u00A0" : char}</motion.span>
-                ))}
-              </div>
-            ))}
-          </motion.h2>
-        </motion.div>
+          {/* TÍTULO INICIAL: Entra normal y se va hacia arriba */}
+          <motion.div className="corp-main-title" style={{ position: "absolute", opacity: titleOpacity, y: titleY, display: titleDisplay, textAlign: "center", zIndex: 10 }}>
+            <motion.h2
+              initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-10%" }}
+              variants={{ hidden: { opacity: 1 }, visible: { transition: { staggerChildren: 0.05 } } }}
+              style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)", fontWeight: 800, color: "#0A0A0C", margin: 0, textTransform: "uppercase", letterSpacing: "1px", lineHeight: 1.1, fontFamily: "var(--font-space)" }}
+            >
+              {titleLines.map((line, lineIndex) => (
+                <div key={lineIndex}>
+                  {Array.from(line.replace(/<[^>]*>?/gm, '')).map((char, index) => (
+                    <motion.span key={index} variants={wordVariant}>{char === " " ? "\u00A0" : char}</motion.span>
+                  ))}
+                </div>
+              ))}
+            </motion.h2>
+          </motion.div>
 
-        {/* TARJETAS VERTICALES: Suben desde abajo */}
-        {isMounted && CORP_STEPS.map((step, i) => (
-          <CorpCardVertical key={i} index={i} step={step} scrollYProgress={scrollYProgress} t={t} />
-        ))}
+          {/* TARJETAS VERTICALES: Suben desde abajo conservando la magia */}
+          {isMounted && CORP_STEPS.map((step, i) => (
+            <CorpCardVertical key={i} index={i} step={step} scrollYProgress={scrollYProgress} t={t} />
+          ))}
 
-      </div>
-    </section>
+        </div>
+      </section>
+    </>
   );
 }
 
@@ -198,14 +236,12 @@ function ServiciosContent() {
             backgroundSize: "cover",
             backgroundPosition: "center",
             zIndex: 0,
-            filter: "brightness(1.6) saturate(1.1)" // 🟢 Efecto muy brillante
+            filter: "brightness(1.6) saturate(1.1)"
           }}
         />
-        {/* 🟢 Texto alineado a la izquierda y subido con marginTop negativo */}
         <motion.div className="container" style={{ position: "relative", zIndex: 2, y: heroY, opacity: heroOpacity, display: "flex", justifyContent: "flex-start", alignItems: "center", height: "100%", marginTop: "-25vh" }}>
           <Typewriter text={t("services.hero.eyebrow")} className="banner-hero-title" />
         </motion.div>
-        {/* Soft edge fade at the bottom to blend to cream background */}
         <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "150px", background: "linear-gradient(to bottom, transparent, #FDFBF7)", zIndex: 3, pointerEvents: "none" }} />
       </section>
 
@@ -257,7 +293,6 @@ function ServiciosContent() {
           className="home-section section-digital-cta"
           style={{ backgroundImage: `url(${t("home.cta_digital.bg")})`, backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}
         >
-          {/* Soft edge fade at the top to blend from cream background */}
           <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "150px", background: "linear-gradient(to bottom, #FDFBF7, transparent)", zIndex: 1, pointerEvents: "none" }} />
 
           <div className="container cta-container" style={{ position: "relative", zIndex: 2 }}>

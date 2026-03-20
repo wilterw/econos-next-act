@@ -161,7 +161,7 @@ function DigitizeSection() {
           initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-10%" }} transition={{ duration: 1, ease: "easeOut" }}
           style={{ position: "absolute", top: "clamp(-40px, -8vw, -80px)", left: 0, zIndex: 0, pointerEvents: "none" }}
         >
-          <h2 style={{ fontSize: "clamp(3.5rem, 9vw, 9rem)", fontWeight: 800, color: "#DEDEDE", lineHeight: 0.85, whiteSpace: "pre-line", margin: 0, textTransform: "uppercase", fontFamily: "'Space Grotesk', var(--font-space, sans-serif)", letterSpacing: "-0.02em" }}>
+          <h2 style={{ fontSize: "clamp(3.5rem, 9vw, 9rem)", fontWeight: 800, color: "#DEDEDE", lineHeight: 0.85, whiteSpace: "pre-line", margin: 0, textTransform: "uppercase", fontFamily: "'Space Grotesk', var(--font-space, sans-serif)", letterSpacing: "-0.02em", wordBreak: "break-word" }}>
             {watermarkText}
           </h2>
         </motion.div>
@@ -176,7 +176,7 @@ function DigitizeSection() {
             <img src={imageSrc} alt="Digitaliza" style={{ width: "100%", height: "auto", borderRadius: "12px", boxShadow: "0 20px 40px rgba(0,0,0,0.1)", objectFit: "cover" }} />
           </motion.div>
           <motion.div initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: "-10%" }} transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }} style={{ flex: "1 1 min(100%, 350px)" }}>
-            <h2 style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)", fontWeight: 700, color: "#2D2418", lineHeight: 1.05, margin: 0, whiteSpace: "pre-line", letterSpacing: "-0.02em", fontFamily: "'Space Grotesk', var(--font-space, sans-serif)" }}>
+            <h2 style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)", fontWeight: 700, color: "#2D2418", lineHeight: 1.05, margin: 0, whiteSpace: "pre-line", letterSpacing: "-0.02em", fontFamily: "'Space Grotesk', var(--font-space, sans-serif)", wordBreak: "break-word" }}>
               {mainTitle}
             </h2>
           </motion.div>
@@ -255,14 +255,20 @@ function ResultsSection() {
           @media (max-width: 900px) {
               .results-column-wrapper {
                   flex-direction: column !important;
+                  justify-content: center !important;
+                  padding-top: 10vh !important;
               }
               .results-title-col {
-                  padding-bottom: 20px !important;
+                  flex: 0 0 auto !important;
+                  padding-bottom: 30px !important;
                   display: flex;
-                  align-items: flex-end;
+                  align-items: flex-start !important;
+                  padding-right: 0 !important;
               }
               .results-cards-col {
+                  flex: 1 1 auto !important;
                   align-items: flex-start !important;
+                  width: 100%;
               }
           }
 
@@ -270,12 +276,12 @@ function ResultsSection() {
               .results-card-inner {
                   flex-direction: column;
                   padding: 30px 25px;
-                  gap: 20px;
+                  gap: 15px;
                   border-radius: 24px;
                   align-items: flex-start;
               }
-              .results-card-num { font-size: 4rem; }
-              .results-card-text { font-size: 1.3rem; }
+              .results-card-num { font-size: 3.5rem; line-height: 1; }
+              .results-card-text { font-size: 1.2rem; }
           }
       `}</style>
 
@@ -369,30 +375,46 @@ function HomeContent() {
   return (
     <>
       <style>{`
+        /* 🟢 REGLAS MÓVILES TOTALMENTE OPTIMIZADAS 🟢 */
         @media (max-width: 768px) {
-          .home-hero { background: linear-gradient(180deg, #1A120A 0%, #D45025 100%) !important; }
+          .home-hero { min-height: 100dvh !important; }
           .hero-bg-layer {
-            background-size: 100% auto !important; 
-            background-position: top center !important; 
+            background-size: cover !important; 
+            /* 🟢 Desplazamos la imagen a la derecha para intentar esconder el logo viejo */
+            background-position: 80% center !important; 
             background-repeat: no-repeat !important; 
-            inset: 0 !important; 
+            inset: -5% 0 !important; 
             transform: none !important; 
           }
+          
+          /* 🟢 NUEVO: Capa de oscuridad intensa solo para móviles para ocultar el texto de la foto */
+          .hero-bg-layer::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(15,10,10,0.85) 0%, rgba(15,10,10,0.6) 40%, rgba(15,10,10,0.95) 100%) !important;
+            z-index: 1;
+          }
+
           .hero-bottom-layout {
             display: flex !important;
             flex-direction: column !important;
-            justify-content: flex-end !important; 
-            padding-top: 80vw !important; 
+            justify-content: center !important; 
+            padding-top: 15vh !important; 
             padding-bottom: 40px !important;
           }
-          .hero-h1-split { font-size: clamp(2rem, 8vw, 3rem) !important; line-height: 1.1 !important; white-space: normal !important; word-wrap: break-word !important; }
+          .hero-h1-split { font-size: clamp(2.5rem, 10vw, 3.5rem) !important; line-height: 1.1 !important; white-space: normal !important; word-wrap: break-word !important; }
           .hero-col-left, .hero-col-right { width: 100% !important; padding: 0 15px !important; text-align: left !important; }
           .hero-desc { font-size: 1.1rem !important; }
-          .gap-layout { display: flex !important; flex-direction: column !important; padding: 20px !important; gap: 30px !important; }
+          .hero-right-content { margin-top: 25px !important; }
+          
+          .gap-layout { display: flex !important; flex-direction: column !important; padding: 20px !important; gap: 40px !important; }
           .gap-col-image, .gap-col-content { width: 100% !important; }
-          .ramon-img { width: 100% !important; height: auto !important; aspect-ratio: 4/3 !important; object-fit: cover !important; object-position: center top !important; border-radius: 16px !important; }
+          .ramon-img { width: 100% !important; height: auto !important; aspect-ratio: 1/1 !important; object-fit: cover !important; object-position: center top !important; border-radius: 16px !important; }
+          
           .identity-grid, .results-layout { display: flex !important; flex-direction: column !important; gap: 30px !important; }
           .identity-left, .identity-right, .results-left, .results-right { width: 100% !important; }
+          .gap-title { font-size: 2.2rem !important; line-height: 1.2 !important; }
         }
       `}</style>
 

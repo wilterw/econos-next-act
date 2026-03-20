@@ -180,27 +180,61 @@ export default function MethodologyScroll() {
                     margin: 0;
                     line-height: 1.5;
                 }
+                
+                .method-header {
+                    position: absolute;
+                    top: clamp(60px, 12%, 15%);
+                    text-align: center;
+                    z-index: 10;
+                    padding: 0 20px;
+                }
+                
+                .method-card-container {
+                    position: relative;
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex: 1;
+                    padding-top: clamp(80px, 15vh, 120px);
+                }
 
-                /* MAGIA PARA MÓVILES (Cambio a diseño vertical) */
+                /* MAGIA PARA MÓVILES (Cambio a diseño vertical y ajustes de espaciado) */
                 @media (max-width: 768px) {
+                    .method-header {
+                        top: 80px; /* Asegura que no se solape con el menú móvil */
+                        width: 100%; /* Toma todo el ancho disponible */
+                    }
+                    /* Aseguramos que el título principal no haga break extraños */
+                    .method-header h2 {
+                        font-size: clamp(2rem, 8vw, 2.5rem) !important;
+                        white-space: normal !important;
+                        word-break: break-word;
+                        line-height: 1.1 !important;
+                    }
+                    .method-card-container {
+                        padding-top: 180px; /* Empuja las tarjetas mucho más abajo para liberar el título */
+                    }
                     .method-card-inner {
                         flex-direction: column; /* Apila imagen arriba, texto abajo */
-                        padding: 25px 20px;
-                        gap: 20px;
-                        border-radius: 24px;
+                        padding: 20px 15px; /* Menos padding lateral para aprovechar el espacio */
+                        gap: 15px; /* Menos espacio entre foto y texto */
+                        border-radius: 20px;
+                        max-height: 65vh; /* Evita que la tarjeta sea más alta que la pantalla */
+                        overflow-y: auto; /* Permite scroll interno en teléfonos muy pequeños */
                     }
                     .method-image-box {
                         width: 100%; /* La imagen ya no tiene 380px, ocupa el 100% del contenedor */
                         aspect-ratio: auto;
-                        height: 200px; /* Le damos una altura fija pero segura */
+                        height: 180px; /* Le damos una altura fija pero segura */
                     }
                     .method-text-box {
                         align-items: flex-start;
                         text-align: left;
                     }
-                    .method-num { font-size: 3.5rem; }
-                    .method-title { font-size: 1.8rem; }
-                    .method-desc { font-size: 1rem; }
+                    .method-num { font-size: 3rem; margin-bottom: 5px;}
+                    .method-title { font-size: 1.5rem; margin-bottom: 10px; }
+                    .method-desc { font-size: 1rem; line-height: 1.4; }
                 }
             `}</style>
 
@@ -215,7 +249,7 @@ export default function MethodologyScroll() {
                     position: "sticky", top: 0, height: "100dvh", width: "100%", overflow: "hidden",
                     display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"
                 }}>
-                    <div style={{ position: "absolute", top: "clamp(60px, 12%, 15%)", textAlign: "center", zIndex: 10, padding: "0 20px" }}>
+                    <div className="method-header">
                         <motion.h2
                             initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-10%" }}
                             variants={{ hidden: { opacity: 1 }, visible: { transition: { staggerChildren: 0.05 } } }}
@@ -239,7 +273,7 @@ export default function MethodologyScroll() {
                         )}
                     </div>
 
-                    <div style={{ position: "relative", width: "100%", display: "flex", alignItems: "center", justifyContent: "center", flex: 1, paddingTop: "clamp(80px, 15vh, 120px)" }}>
+                    <div className="method-card-container">
                         {isMounted && STEPS.map((step, i) => (
                             <MethodCard key={i} index={i} step={step} scrollYProgress={scrollYProgress} t={t} />
                         ))}
