@@ -205,12 +205,15 @@ export default function MethodologyScroll() {
                         top: 80px; /* Asegura que no se solape con el menú móvil */
                         width: 100%; /* Toma todo el ancho disponible */
                     }
-                    /* Aseguramos que el título principal no haga break extraños */
+                    /* 🟢 OBLIGAMOS AL TÍTULO A UNA SOLA LÍNEA (NOWRAP) */
                     .method-header h2 {
-                        font-size: clamp(2rem, 8vw, 2.5rem) !important;
-                        white-space: normal !important;
-                        word-break: break-word;
+                        font-size: clamp(1.2rem, 7vw, 2.5rem) !important;
+                        white-space: nowrap !important;
                         line-height: 1.1 !important;
+                    }
+                    .method-header p {
+                        font-size: clamp(0.9rem, 4vw, 1.2rem) !important;
+                        white-space: nowrap !important;
                     }
                     .method-card-container {
                         padding-top: 180px; /* Empuja las tarjetas mucho más abajo para liberar el título */

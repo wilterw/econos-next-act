@@ -255,20 +255,14 @@ function ResultsSection() {
           @media (max-width: 900px) {
               .results-column-wrapper {
                   flex-direction: column !important;
-                  justify-content: center !important;
-                  padding-top: 10vh !important;
               }
               .results-title-col {
-                  flex: 0 0 auto !important;
-                  padding-bottom: 30px !important;
+                  padding-bottom: 20px !important;
                   display: flex;
-                  align-items: flex-start !important;
-                  padding-right: 0 !important;
+                  align-items: flex-end;
               }
               .results-cards-col {
-                  flex: 1 1 auto !important;
                   align-items: flex-start !important;
-                  width: 100%;
               }
           }
 
@@ -276,12 +270,12 @@ function ResultsSection() {
               .results-card-inner {
                   flex-direction: column;
                   padding: 30px 25px;
-                  gap: 15px;
+                  gap: 20px;
                   border-radius: 24px;
                   align-items: flex-start;
               }
-              .results-card-num { font-size: 3.5rem; line-height: 1; }
-              .results-card-text { font-size: 1.2rem; }
+              .results-card-num { font-size: 4rem; }
+              .results-card-text { font-size: 1.3rem; }
           }
       `}</style>
 
@@ -410,7 +404,16 @@ function HomeContent() {
           
           .gap-layout { display: flex !important; flex-direction: column !important; padding: 20px !important; gap: 40px !important; }
           .gap-col-image, .gap-col-content { width: 100% !important; }
-          .ramon-img { width: 100% !important; height: auto !important; aspect-ratio: 1/1 !important; object-fit: cover !important; object-position: center top !important; border-radius: 16px !important; }
+          
+          /* 🟢 IMAGEN CORREGIDA: Se quita el aspect-ratio y el cover para que no se recorte */
+          .ramon-img { 
+            width: 100% !important; 
+            height: auto !important; 
+            aspect-ratio: auto !important; 
+            object-fit: contain !important; 
+            object-position: center top !important; 
+            border-radius: 16px !important; 
+          }
           
           .identity-grid, .results-layout { display: flex !important; flex-direction: column !important; gap: 30px !important; }
           .identity-left, .identity-right, .results-left, .results-right { width: 100% !important; }
@@ -466,7 +469,20 @@ function HomeContent() {
 
             </RevealParent>
 
-            <GradientRevealText><p className="identity-hero-moved" dangerouslySetInnerHTML={{ __html: t("home.hero.title") }} /></GradientRevealText>
+            {/* 🟢 TEXTO CORREGIDO: Animación estándar (como el resto) y color más oscuro */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-15%" }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              style={{ marginTop: "40px" }}
+            >
+              <p
+                className="identity-hero-moved"
+                style={{ color: "#2D2418", fontWeight: 600, margin: 0 }}
+                dangerouslySetInnerHTML={{ __html: t("home.hero.title") }}
+              />
+            </motion.div>
           </div>
           <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "100px", background: "linear-gradient(to bottom, transparent, #FDFBF7)", zIndex: 3, pointerEvents: "none" }} />
         </section>
